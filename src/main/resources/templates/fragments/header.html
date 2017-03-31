@@ -1,0 +1,46 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="header-top-bg" th:fragment="header">
+    <!-- container -->
+    <div class="container wrap">
+        <!-- header -->
+        <div class="header-bg">
+            <div class="header-logo">
+                <a href="../index.html" th:href="@{/index.html}">
+                    <img src="../../static/images/logo.png" th:src="@{/images/logo.png}" alt=""/>
+                </a>
+            </div>
+            <div class="top-nav">
+                <ul th:include="fragments/links :: links"></ul>
+            </div>
+            <div class="header-address" th:object="${session.contact}">
+                <ul>
+                    <!--<li>09-45 Mary Road , London , J-9 09SD</li>-->
+                    <li class="phone-img">联系电话: <a href="tel:+86 135 2468 1357" th:href="|tel:*{phone}|"
+                                                   th:text="*{phone}">+86 135 2468 1357</a></li>
+                    <li>E-mail : <a href="mailto:example@email.com" th:href="|mailto:*{email}|" th:text="*{email}">example@mail.com</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- //header -->
+    </div>
+    <!-- //container -->
+
+    <script>
+        var pathname = window.location.pathname;
+        pathname = pathname === '/' ? '/index.html' : pathname === '/single.html' ? '/products.html' : pathname;
+
+        jQuery('.top-nav').find('ul li a').each(function () {
+            var $this = jQuery(this);
+
+            if ($this.attr('href') === pathname)
+                jQuery(this).closest('li').addClass("active");
+            else
+                jQuery(this).closest('li').removeClass("active");
+        })
+    </script>
+</div>
+</body>
+</html>

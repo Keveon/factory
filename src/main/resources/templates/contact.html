@@ -1,0 +1,48 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
+<head th:include="layouts/default :: htmlhead" th:with="title='联系方式'"></head>
+<body>
+<div class="container" layout:fragment="content">
+    <div class="contact">
+        <div class="col-md-7 contact-para">
+            <!--<p class="class-para">The information necessary to shape your project by sharing our opinions with us can-->
+            <!--learn or get a price quote.The information necessary to shape.</p>-->
+            <h5>联系信息</h5>
+            <form>
+                <div class="grid-contact">
+                    <div class="col-md-6 contact-grid">
+                        <label for="name"><p>姓名：</p></label>
+                        <input type="text" name="" id="name" placeholder="请输入您的名称">
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="grid-contact">
+                    <div class="col-md-6 contact-grid">
+                        <label for="email"><p>邮箱：</p></label>
+                        <input type="text" name="" id="email" placeholder="请输入电子邮件地址">
+                    </div>
+                    <div class="col-md-6 contact-grid">
+                        <label for="telephone"><p>电话：</p></label>
+                        <input type="text" name="" id="telephone" placeholder="请输入电话号码">
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <label for="message"><p class="your-para">信息：</p></label>
+                <textarea cols="77" rows="6" name="" id="message" placeholder="请输入要发送的内容"></textarea>
+                <div class="send">
+                    <input type="submit" value="发送">
+                </div>
+            </form>
+        </div>
+        <div class="col-md-5 contact-map">
+            <h5>地图</h5>
+            <div class="map" style="border: #ffe9a4 double 1px;">
+                <!--<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d37494223.23909492!2d103!3d55!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x453c569a896724fb%3A0x1409fdf86611f613!2sRussia!5e0!3m2!1sen!2sin!4v1415776049771"></iframe>-->
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+</body>
+</html>

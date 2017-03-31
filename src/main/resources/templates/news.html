@@ -1,0 +1,316 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}"
+      th:with="title='文章管理',description='News Manager'">
+<head th:include="layouts/layout :: htmlhead"></head>
+<body>
+<th:block layout:fragment="content">
+    <section class="search-env">
+
+        <form class="form-inline">
+            <input type="hidden" name="page" id="page" value="0">
+
+            <div class="form-group">
+                <label class="control-label sr-only" for="type">类别：</label>
+                <select class="form-control" name="type" id="type">
+                    <option th:each="i : ${session.types}" th:value="${i.name()}" th:text="${i.type}">全部</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <script type="text/javascript">
+                    jQuery(document).ready(function ($) {
+                        var i = -1,
+                            colors = ['primary', 'secondary', 'red', 'blue', 'warning', 'success', 'purple'];
+
+                        colors = shuffleArray(colors);
+
+                        $("#s").tagsinput({
+                            tagClass: function () {
+                                i++;
+                                return "label label-" + colors[i % colors.length];
+                            }
+                        });
+                    });
+
+                    // Just for demo purpose
+                    function shuffleArray(array) {
+                        for (var i = array.length - 1; i > 0; i--) {
+                            var j = Math.floor(Math.random() * (i + 1));
+                            var temp = array[i];
+                            array[i] = array[j];
+                            array[j] = temp;
+                        }
+                        return array;
+                    }
+                </script>
+                <label class="control-label sr-only" for="s">标题：</label>
+                <input class="form-control" type="text" name="s" id="s" placeholder="请输入标题关键字"/>
+            </div>
+
+        </form>
+
+        <div class="search-results">
+
+            <div class="tabs-vertical-env">
+
+                <div class="tab-content">
+
+                    <!-- Sample Search Results Tab -->
+                    <div class="tab-pane active" id="web">
+
+                        <h2 th:with="s=${#request.getParameter('s')}" th:unless="${#strings.isEmpty(s)}">
+                            Search results for &quot;<span class="text-success" th:text="${s}">laborator</span>&quot;
+
+                            <small>About 15,520,000,000 results (0.34 seconds)</small>
+                        </h2>
+
+                        <ul class="results list-unstyled">
+
+                            <li>
+                                <h3>
+                                    <a href="#">UI Elements</a>
+                                </h3>
+                                <p>Day handsome addition horrible sensible goodness two contempt. Evening for
+                                    married his account removal. Estimable me disposing of be moonlight cordially
+                                    curiosity. Delay rapid joy share allow age manor six. Went why far saw many
+                                    knew. Exquisite excellent son gentleman acuteness her. Do is voice total power
+                                    mr ye might round still.</p>
+                            </li>
+
+                            <li>
+                                <h3>
+                                    <a href="#">Inbox</a>
+                                </h3>
+
+                                <p>Day handsome addition horrible sensible goodness two contempt. Evening for
+                                    married his account removal. Estimable me disposing of be moonlight cordially
+                                    curiosity. Delay rapid joy share allow age manor six. Went why far saw many
+                                    knew. Exquisite excellent son gentleman acuteness her. Do is voice total power
+                                    mr ye might round still.</p>
+
+                            </li>
+
+                            <li>
+                                <h3>
+                                    <a href="#">Layout Options</a>
+                                </h3>
+
+                                <p>Day handsome addition horrible sensible goodness two contempt. Evening for
+                                    married his account removal. Estimable me disposing of be moonlight cordially
+                                    curiosity. Delay rapid joy share allow age manor six. Went why far saw many
+                                    knew. Exquisite excellent son gentleman acuteness her. Do is voice total power
+                                    mr ye might round still.</p>
+
+                            </li>
+
+                            <li>
+                                <h3>
+                                    <a href="#">Panels</a>
+                                </h3>
+
+                                <p>Day handsome addition horrible sensible goodness two contempt. Evening for
+                                    married his account removal. Estimable me disposing of be moonlight cordially
+                                    curiosity. Delay rapid joy share allow age manor six. Went why far saw many
+                                    knew. Exquisite excellent son gentleman acuteness her. Do is voice total power
+                                    mr ye might round still.</p>
+
+                            </li>
+
+                        </ul>
+
+                        <!-- Pagination Position -->
+                        <div class="text-center">
+                            <nav aria-label="Search results pages">
+                                <ul class="pagination pagination-sm">
+                                    <li class="disabled">
+                                        <span aria-hidden="true"><i class="fa-angle-double-left"></i></span>
+                                    </li>
+                                    <li class="disabled">
+                                        <span aria-hidden="true"><i class="fa-angle-left"></i></span>
+                                    </li>
+                                    <li class="active">
+                                        <span>1</span>
+                                    </li>
+                                    <li>
+                                        <span>2</span>
+                                    </li>
+                                    <li>
+                                        <span>3</span>
+                                    </li>
+                                    <li>
+                                        <span aria-hidden="true"><i class="fa-angle-right"></i></span>
+                                    </li>
+                                    <li>
+                                        <span aria-hidden="true"><i class="fa-angle-double-right"></i></span>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <script>
+        var $form = jQuery('form'),
+            $tabContent = jQuery('#web'),
+            $newsList = $tabContent.find('ul.results'),
+            $page = $tabContent.find('ul.pagination');
+
+        function flushNewsList(newses) {
+            $newsList.empty();
+            for (var i = 0; i < newses.length; i++) {
+                var news = newses[i],
+                    str = '' +
+                        '<li>' +
+                        '    <h3>' +
+                        '        <a href="news.html/' + news.id + '">' + news.title + '</a>' +
+                        '    </h3>' +
+                        '    <p>' + news.description + '</p>' +
+                        '</li>' +
+                        '';
+                $newsList.append(str);
+            }
+        }
+
+        function flushPagination(pagination) {
+            console.log(pagination);
+
+            var number = pagination.number + 1,
+                totalPages = pagination.totalPages,
+                childs = '' +
+                    '<li>' +
+                    '    <span><i class="fa-angle-double-left"></i></span>' +
+                    '</li>' +
+                    '<li>' +
+                    '    <span><i class="fa-angle-left"></i></span>' +
+                    '</li>' +
+                    '';
+
+            totalPages = 0 == totalPages ? 1 : totalPages;
+            for (var i = 0; i < totalPages; i++) {
+                childs += '' +
+                    '<li>' +
+                    '    <span>' + (i + 1) + '</span>' +
+                    '</li>' +
+                    '';
+            }
+
+            childs += '' +
+                '<li>' +
+                '    <span><i class="fa-angle-right"></i></span>' +
+                '</li>' +
+                '<li>' +
+                '    <span><i class="fa-angle-double-right"></i></span>' +
+                '</li>' +
+                '';
+
+            $page.html(childs);
+
+            function findLi(condition) {
+                var $li;
+                switch (typeof condition) {
+                    case 'string':
+                        $li = $page.find('li:' + condition);
+                        break;
+                    default:
+                        $page.find('li').each(function () {
+                            var $this = jQuery(this);
+                            if (condition == $this.find('span').text())
+                                $li = $this;
+                        });
+                        break;
+                }
+                return $li;
+            }
+
+            if (pagination.first)
+                findLi('first').addClass('disabled').next().addClass('disabled');
+            else if (pagination.last)
+                findLi('last').addClass('disabled').prev().addClass('disabled');
+
+            findLi(number).addClass('active');
+
+            // 底部分页器单击事件
+            $page.find('li').on('click', function (e) {
+                e.preventDefault();
+                var $pageNumber = jQuery('#page'),
+                    $currentPage = $page.find('li.active'),
+                    $this = jQuery(this),
+                    $span = $this.find('span'),
+                    $i = $span.find('i'),
+                    page = $span.text().trim();
+
+                if (1 <= $i.length) {
+                    $i.each(function () {
+                        var $current = jQuery(this);
+
+                        if (!$this.hasClass('disabled')) {
+                            $currentPage.removeClass('active');
+                            switch ($current.prop('class')) {
+                                case 'fa-angle-double-left':
+                                    findLi(1).addClass('active');
+                                    break;
+                                case 'fa-angle-left':
+                                    $currentPage.prev().addClass('active');
+                                    break;
+                                case 'fa-angle-right':
+                                    $currentPage.next().addClass('active');
+                                    break;
+                                case 'fa-angle-double-right':
+                                    findLi(totalPages).addClass('active');
+                                    break;
+                            }
+                            $pageNumber.val($page.find('li.active').text().trim() - 1);
+                            flushResult();
+                        }
+                    })
+                } else {
+                    $currentPage.removeClass('active');
+                    $this.addClass('active');
+                    $pageNumber.val(page - 1);
+                    flushResult();
+                }
+            });
+        }
+
+        function flushResult() {
+//            jQuery.get('/news.html/newses', {"s" : $('#s').val()},
+            jQuery.get('/news.html/newses', $form.serializeArray(),
+                function (response, statusText, xhr) {
+                    flushNewsList(response.content);
+                    flushPagination(response);
+                });
+        }
+
+        jQuery(function () {
+            flushResult();
+
+            // 委托事件, 当输入框及下拉框值改变时执行
+            $form.find('input, select').each(function () {
+                jQuery(this).on('change', function (e) {
+                    e.preventDefault();
+
+                    flushResult();
+                })
+            });
+
+            $form.find('input, select').each(function () {
+                jQuery(this).on('focus', function (e) {
+                    e.preventDefault();
+
+                    jQuery('#page').val(0);
+                })
+            });
+        });
+
+    </script>
+</th:block>
+</body>
+</html>

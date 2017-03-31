@@ -1,0 +1,196 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}"
+      th:with="title='搜索结果',description='Search Result',s=${#httpServletRequest.getParameter('s')}">
+<head th:include="layouts/layout :: htmlhead"></head>
+<body>
+<th:block layout:fragment="content">
+
+    <section class="search-env">
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <form method="get" action="" enctype="application/x-www-form-urlencoded">
+                    <input type="text" class="form-control input-lg" placeholder="Search..." th:value="${s}" name="s"/>
+
+                    <button type="submit" class="btn-unstyled">
+                        <i class="linecons-search"></i>
+                    </button>
+                </form>
+
+                <div class="search-results">
+
+                    <div class="tabs-vertical-env">
+
+                        <ul class="nav tabs-vertical">
+                            <li class="active">
+                                <a href="#web" data-toggle="tab">
+                                    <i class="fa-globe visible-xs"></i>
+                                    <span class="hidden-xs">Web</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#images" data-toggle="tab">
+                                    <i class="fa-picture visible-xs"></i>
+                                    <span class="hidden-xs">Images</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#documents" data-toggle="tab">
+                                    <i class="fa-docs visible-xs"></i>
+                                    <span class="hidden-xs">Documents</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#videos" data-toggle="tab">
+                                    <i class="fa-video visible-xs"></i>
+                                    <span class="hidden-xs">Videos</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#contacts" data-toggle="tab">
+                                    <i class="fa-users visible-xs"></i>
+                                    <span class="hidden-xs">Contacts</span>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content">
+
+                            <!-- Sample Search Results Tab -->
+                            <div class="tab-pane active" id="web">
+
+                                <h2>
+                                    Search results for &quot;<span class="text-success" th:text="${s}">laborator</span>&quot;
+
+                                    <small>About 15,520,000,000 results (0.34 seconds)</small>
+                                </h2>
+
+
+                                <ul class="results list-unstyled">
+
+                                    <li>
+                                        <h3>
+                                            <a href="#">UI Elements</a>
+                                        </h3>
+
+                                        <p>Day handsome addition horrible sensible goodness two contempt. Evening for
+                                            married his account removal. Estimable me disposing of be moonlight
+                                            cordially curiosity. Delay rapid joy share allow age manor six. Went why far
+                                            saw many knew. Exquisite excellent son gentleman acuteness her. Do is voice
+                                            total power mr ye might round still.</p>
+
+                                        <a href="#" class="link">extra-search.html</a>
+                                    </li>
+
+                                    <li>
+                                        <h3>
+                                            <a href="#">Inbox</a>
+                                        </h3>
+
+                                        <p>Day handsome addition horrible sensible goodness two contempt. Evening for
+                                            married his account removal. Estimable me disposing of be moonlight
+                                            cordially curiosity. Delay rapid joy share allow age manor six. Went why far
+                                            saw many knew. Exquisite excellent son gentleman acuteness her. Do is voice
+                                            total power mr ye might round still.</p>
+
+                                        <a href="#" class="link">extra-search.html</a>
+                                    </li>
+
+                                    <li>
+                                        <h3>
+                                            <a href="#">Layout Options</a>
+                                        </h3>
+
+                                        <p>Day handsome addition horrible sensible goodness two contempt. Evening for
+                                            married his account removal. Estimable me disposing of be moonlight
+                                            cordially curiosity. Delay rapid joy share allow age manor six. Went why far
+                                            saw many knew. Exquisite excellent son gentleman acuteness her. Do is voice
+                                            total power mr ye might round still.</p>
+
+                                        <a href="#" class="link">extra-search.html</a>
+                                    </li>
+
+                                    <li>
+                                        <h3>
+                                            <a href="#">Panels</a>
+                                        </h3>
+
+                                        <p>Day handsome addition horrible sensible goodness two contempt. Evening for
+                                            married his account removal. Estimable me disposing of be moonlight
+                                            cordially curiosity. Delay rapid joy share allow age manor six. Went why far
+                                            saw many knew. Exquisite excellent son gentleman acuteness her. Do is voice
+                                            total power mr ye might round still.</p>
+
+                                        <a href="#" class="link">extra-search.html</a>
+                                    </li>
+
+                                </ul>
+
+                                <!-- Pagination Position -->
+                                <div class="text-center">
+                                    <ul class="pagination pagination-sm">
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa-angle-left"></i>
+                                            </a>
+                                        </li>
+                                        <li class="active">
+                                            <a href="#">1</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">2</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">3</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">4</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">5</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa-angle-right"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                            <!-- Search Results Tab -->
+                            <div class="tab-pane" id="images">
+                                Search results about images...
+                            </div>
+
+                            <!-- Search Results Tab -->
+                            <div class="tab-pane" id="documents">
+                                Search results about documents...
+                            </div>
+
+                            <!-- Search Results Tab -->
+                            <div class="tab-pane" id="videos">
+                                Search results about videos...
+                            </div>
+
+                            <!-- Search Results Tab -->
+                            <div class="tab-pane" id="contacts">
+                                Search results about contacts...
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+</th:block>
+</body>
+</html>

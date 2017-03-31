@@ -1,0 +1,38 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<header class="logo-env" th:fragment="logo">
+    <!-- logo -->
+    <div class="logo">
+        <a href="../admin.html" th:href="@{/admin.html}" class="logo-expanded">
+            <img src="../../static/images/logo2x.png" th:src="@{/images/logo2x.png}" width="80" alt=""/>
+        </a>
+
+        <a href="../admin.html" th:href="@{/admin.html}" class="logo-collapsed">
+            <img src="../../static/images/logo-collapsed2x.png" th:src="@{/images/logo-collapsed2x.png}"
+                 width="40" alt=""/>
+        </a>
+    </div>
+
+    <!-- This will toggle the mobile menu and will be visible only on mobile devices -->
+    <div class="mobile-menu-toggle visible-xs">
+        <a href="#" data-toggle="user-info-menu">
+            <i class="fa-bell-o"></i>
+            <span class="badge badge-success">7</span>
+        </a>
+
+        <a href="#" data-toggle="mobile-menu">
+            <i class="fa-bars"></i>
+        </a>
+    </div>
+
+    <!-- This will open the popup with user profile settings, you can use for any purpose, just be creative -->
+    <!--<div class="settings-icon">-->
+    <!--<a href="#" data-toggle="settings-pane" data-animate="true">-->
+    <!--<i class="linecons-cog"></i>-->
+    <!--</a>-->
+    <!--</div>-->
+
+</header>
+</body>
+</html>

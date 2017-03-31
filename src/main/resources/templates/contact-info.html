@@ -1,0 +1,147 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}" th:with="title='联系信息',description='Contact Info'">
+<head th:include="layouts/layout :: htmlhead"></head>
+<body>
+<th:block layout:fragment="content">
+    <div class="row">
+
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                setTimeout(function () {
+                    $(".fade-in-effect").addClass('in');
+                }, 1);
+
+                jQuery('button.btn-primary').on('click', function (e) {
+                    e.preventDefault();
+                    jQuery.ajax({
+                        url: '/contact-info.html',
+                        type: 'patch',
+                        data: jQuery('form#contact-form').serialize(),
+                        success: function (response) {
+                            toastr.success(response, "成功!", {progressBar: false});
+                            setTimeout(function () {
+                                location.reload();
+                            }, 2000);
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+                    });
+                })
+            });
+        </script>
+
+        <form class="fade-in-effect" id="contact-form" method="post" th:action="@{/contact-info.html}"
+              th:object="${session.contact}">
+
+            <div class="form-group">
+                <button type="button" class="btn btn-primary">保存</button>
+                <button type="reset" class="btn btn-default">取消</button>
+                <input type="hidden" name="id" id="id" th:value="*{id}">
+            </div>
+
+            <fieldset>
+                <legend>位置信息</legend>
+
+                <div class="form-group  col-sm-4">
+                    <label class="sr-only" for="country">Country</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="fa-plane"></i></div>
+                        <input type="tel" class="form-control" id="country" name="country" placeholder="国家"
+                               th:value="*{country}">
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="sr-only" for="province">Province</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="fa-bus"></i></div>
+                        <input type="tel" class="form-control" id="province" name="province" placeholder="省"
+                               th:value="*{province}">
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="sr-only" for="city">City</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="fa-taxi"></i></div>
+                        <input type="tel" class="form-control" id="city" name="city" placeholder="市" th:value="*{city}">
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="sr-only" for="community">Community</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="fa-bicycle"></i></div>
+                        <input type="tel" class="form-control" id="community" name="community" placeholder="区/县"
+                               th:value="*{community}">
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-8">
+                    <label class="sr-only" for="street">Street</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="fa-user-md"></i></div>
+                        <input type="tel" class="form-control" id="street" name="street" placeholder="街道"
+                               th:value="*{street}">
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>联系信息</legend>
+
+                <div class="form-group col-sm-6">
+                    <label class="sr-only" for="phone">Phone</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="fa-phone"></i></div>
+                        <input type="tel" class="form-control" id="phone" name="phone"
+                               placeholder="联系电话, 如: +86 135 2468 1357" data-mask="+99 999 9999 9999"
+                               th:value="*{phone}">
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-6">
+                    <label class="sr-only" for="email">E-Mail</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="fa-envelope"></i></div>
+                        <input type="text" class="form-control" id="email" name="email"
+                               placeholder="电子邮箱地址, 如: example@mail.com" th:value="*{email}">
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-6">
+                    <label class="sr-only" for="qq">QQ</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="fa-qq"></i></div>
+                        <input type="text" class="form-control" id="qq" name="qq" placeholder="QQ 号码" th:value="*{qq}">
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-6">
+                    <label class="sr-only" for="wechat">WeChat</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="fa-wechat"></i></div>
+                        <input type="text" class="form-control" id="wechat" name="wechat" placeholder="微信号码"
+                               th:value="*{wechat}">
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-6">
+                    <label class="sr-only" for="qq-url">QQ URL</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><a href="//shang.qq.com" target="_blank"><i class="fa-link"></i></a>
+                        </div>
+                        <input type="text" class="form-control" id="qq-url" name="qqUrl"
+                               placeholder="QQ 在线链接地址, 可点左侧图标申请" th:value="*{qqUrl}">
+                    </div>
+                </div>
+            </fieldset>
+
+        </form>
+
+    </div>
+</th:block>
+</body>
+</html>

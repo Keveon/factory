@@ -1,0 +1,12 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}" th:with="title='首页',description='Admin Dashboard'">
+<head th:include="layouts/layout :: htmlhead"></head>
+<body>
+<th:block layout:fragment="content">
+    <div class="row">
+        <img class="img-responsive" src="../static/images/banner.jpg" th:src="@{images/banner.jpg}">
+    </div>
+</th:block>
+</body>
+</html>

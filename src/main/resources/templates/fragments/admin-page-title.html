@@ -1,0 +1,25 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="page-title" th:fragment="page-title">
+
+    <div class="title-env">
+        <h1 class="title" th:text="${title}"></h1>
+        <p class="description" th:text="${description}"></p>
+    </div>
+
+    <div class="breadcrumb-env">
+
+        <ol class="breadcrumb bc-1">
+            <li>
+                <a href="../admin.html" th:href="@{/admin.html}"><i class="fa-home"></i>主页</a>
+            </li>
+            <li class="active">
+                <strong th:text="${title}"></strong>
+            </li>
+        </ol>
+
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+/**
+ *
+ * Apply your custom CSS here
+ *
+*/
+
+body {
+}
+
+a {
+}
+
+.sidebar-menu {
+    width: 300px;
+}
+
+#toast-container > .toast {
+    padding-left: 4em;
+}
+
+#toast-container > div {
+    padding: 22px 20px;
+}

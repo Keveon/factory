@@ -1,0 +1,112 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<th:block th:fragment="menu">
+    <ul id="main-menu" class="main-menu">
+        <!-- add class "multiple-expanded" to allow multiple submenus to open -->
+        <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
+        <li class="opened active">
+            <a href="../admin.html" th:href="@{/admin.html}">
+                <i class="linecons-cog"></i>
+                <span class="title">首页</span>
+            </a>
+        </li>
+        <li>
+            <a th:href="@{/contact-info.html}">
+                <i class="fa-newspaper-o"></i>
+                <span class="title">联系信息</span>
+            </a>
+        </li>
+        <li>
+            <a th:href="@{news.html}">
+                <i class="fa-edit"></i>
+                <span class="title">文章管理</span>
+            </a>
+            <!--<ul>-->
+            <!--<li>-->
+            <!--<a th:href="@{news.html(tab='home')}">-->
+            <!--<i class="fa-edit"></i>-->
+            <!--<span class="title">首页文章管理</span>-->
+            <!--</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a th:href="@{news.html(tab='prodects')}">-->
+            <!--<i class="fa-edit"></i>-->
+            <!--<span class="title">产品文章管理</span>-->
+            <!--</a>-->
+            <!--</li>-->
+            <!--</ul>-->
+        </li>
+        <!--<li>-->
+        <!--<a href="../mailbox-main.html" th:href="@{/mailbox-main.html}">-->
+        <!--<i class="linecons-mail"></i>-->
+        <!--<span class="title">消息</span>-->
+        <!--<span class="label label-success pull-right">5</span>-->
+        <!--</a>-->
+        <!--</li>-->
+        <!--<li>-->
+        <!--<a href="#">-->
+        <!--<i class="linecons-cloud"></i>-->
+        <!--<span class="title">Menu Levels</span>-->
+        <!--</a>-->
+        <!--<ul>-->
+        <!--<li>-->
+        <!--<a href="#">-->
+        <!--<i class="entypo-flow-line"></i>-->
+        <!--<span class="title">Menu Level 1.1</span>-->
+        <!--</a>-->
+        <!--<ul>-->
+        <!--<li>-->
+        <!--<a href="#">-->
+        <!--<i class="entypo-flow-parallel"></i>-->
+        <!--<span class="title">Menu Level 2.1</span>-->
+        <!--</a>-->
+        <!--</li>-->
+        <!--<li>-->
+        <!--<a href="#">-->
+        <!--<i class="entypo-flow-parallel"></i>-->
+        <!--<span class="title">Menu Level 2.2</span>-->
+        <!--</a>-->
+        <!--<ul>-->
+        <!--<li>-->
+        <!--<a href="#">-->
+        <!--<i class="entypo-flow-cascade"></i>-->
+        <!--<span class="title">Menu Level 3.1</span>-->
+        <!--</a>-->
+        <!--</li>-->
+        <!--<li>-->
+        <!--<a href="#">-->
+        <!--<i class="entypo-flow-cascade"></i>-->
+        <!--<span class="title">Menu Level 3.2</span>-->
+        <!--</a>-->
+        <!--</li>-->
+        <!--</ul>-->
+        <!--</li>-->
+        <!--<li>-->
+        <!--<a href="#">-->
+        <!--<i class="entypo-flow-parallel"></i>-->
+        <!--<span class="title">Menu Level 2.3</span>-->
+        <!--</a>-->
+        <!--</li>-->
+        <!--</ul>-->
+        <!--</li>-->
+        <!--</ul>-->
+        <!--</li>-->
+    </ul>
+
+    <script>
+        var pathname = window.location.pathname;
+        pathname = pathname === '/admin' ? '/admin.html' : pathname;
+
+        jQuery('.main-menu').find('li a').each(function () {
+            var $this = jQuery(this);
+
+            if ($this.attr('href') === pathname)
+                jQuery(this).closest('li').addClass("active");
+            else
+                jQuery(this).closest('li').removeClass("active");
+        })
+    </script>
+</th:block>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<th:block th:fragment="links">
+    <li><a href="../index.html" th:href="@{/index.html}"> 首页 </a></li>
+    <li><a href="../products.html" th:href="@{/products.html}" data-hover="产品"> 产品 </a></li>
+    <!--<li><a href="../404.html" th:href="@{/events.html}" data-hover="Events"> Events </a></li>-->
+    <li><a href="../contact.html" th:href="@{/contact.html}" data-hover="联系我们"> 联系我们 </a></li>
+    <li><a href="../about.html" th:href="@{/about.html}" data-hover="关于我们"> 关于我们 </a></li>
+    <!--<li><a href="../login.html" th:href="@{/login.html}" data-hover="登录"> 登录 </a></li>-->
+</th:block>
+
+</body>
+</html>
