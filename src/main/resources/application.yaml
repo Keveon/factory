@@ -1,0 +1,44 @@
+spring:
+  thymeleaf:
+    mode: HTML
+    cache: false
+  data:
+    jpa:
+      repositories:
+        bootstrap-mode: lazy
+  jpa:
+    show-sql: true
+    open-in-view: true
+    hibernate:
+      ddl-auto: create-drop
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: false
+info:
+  name: ${spring.application.name}
+  title: 工厂管理系统
+  manual: https://factory.keveon.com
+  description: This is a factory manager system.
+  tags:
+    environment: ${spring.profiles.active:produce}
+management:
+  info:
+    git:
+      mode: full
+  metrics:
+    tags:
+      application: ${spring.application.name}
+      environment: ${info.tags.environment}
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  ## 这几项配置不建议在生产环境使用
+  endpoint:
+    shutdown:
+      enabled: true
+    health:
+      show-details: always

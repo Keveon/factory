@@ -2,278 +2,247 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.2.RELEASE</version>
+        <version>2.2.0.M4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-
-    <groupId>com.keveon</groupId>
-    <artifactId>factory</artifactId>
-    <version>1.0</version>
-    <packaging>jar</packaging>
-
-    <name>Factory</name>
-    <description>Factory project for Spring Boot</description>
-    <url>https://demo.keveon.com/</url>
+    <groupId>com.keveon.factory</groupId>
+    <artifactId>factory-manager</artifactId>
+    <version>2.0.0-SNAPSHOT</version>
+    <name>Factory Manager System</name>
+    <description>Factory Manager System for Spring Boot</description>
+    <url>https://factory.keveon.com/</url>
     <inceptionYear>2017</inceptionYear>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-
-        <start-class>com.keveon.Application</start-class>
-        <thymeleaf.version>3.0.3.RELEASE</thymeleaf.version>
-        <thymeleaf-layout-dialect.version>2.2.0</thymeleaf-layout-dialect.version>
-
-        <build-plugin.springloaded.version>1.2.6.RELEASE</build-plugin.springloaded.version>
-
-        <commons-io.version>2.5</commons-io.version>
-        <commons-lang.version>2.6</commons-lang.version>
-        <druid.version>1.0.18</druid.version>
-        <fastjson.version>1.2.24</fastjson.version>
-        <guava.version>21.0</guava.version>
-
-        <webjars.requirejs.version>2.3.3</webjars.requirejs.version>
-        <webjars.jquery.version>2.2.4</webjars.jquery.version>
-        <webjars.jquery-form.version>3.51</webjars.jquery-form.version>
-        <webjars.jquery-mousewheel.version>3.0.6</webjars.jquery-mousewheel.version>
-        <webjars.jquery-validation.version>1.16.0</webjars.jquery-validation.version>
-        <webjars.jquery-inputmask.version>3.3.1</webjars.jquery-inputmask.version>
-        <webjars.bootstrap.version>3.3.7</webjars.bootstrap.version>
-        <webjars.bootstrap-tagsinput.version>0.6.1</webjars.bootstrap-tagsinput.version>
-        <webjars.uikit.version>2.26.3</webjars.uikit.version>
-        <webjars.fontawesome.version>4.7.0</webjars.fontawesome.version>
-        <webjars.ckeditor.version>4.6.2</webjars.ckeditor.version>
-        <webjars.simditor.version>2.0.4</webjars.simditor.version>
-        <webjars.vue.version>2.1.3</webjars.vue.version>
-        <webjars.vue-resource.version>0.9.3</webjars.vue-resource.version>
-        <webjars.parsleyjs.version>2.1.2</webjars.parsleyjs.version>
-        <webjars.toastr.version>2.1.2</webjars.toastr.version>
-    </properties>
-
+    <scm>
+        <connection>scm:git:git://github.com/keveon/factory.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/factory.git</developerConnection>
+        <url>https://github.com/keveon/factory</url>
+        <tag>master</tag>
+    </scm>
     <developers>
         <developer>
             <id>kevoen</id>
             <name>Keveon Wang</name>
             <email>keveon@keveon.com</email>
+            <url>https://keveon.me</url>
+            <timezone>+8</timezone>
             <roles>
                 <role>Project lead</role>
             </roles>
-            <timezone>+8</timezone>
             <properties>
-                <url>http://www.keveon.com</url>
-                <githubUrl>http://github.com/keveon</githubUrl>
-                <oscGitUrl>http://git.oschina.net/keveon</oscGitUrl>
+                <githubUrl>https://github.com/keveon</githubUrl>
             </properties>
         </developer>
     </developers>
+    <properties>
+        <java.version>1.8</java.version>
+        <disable.checks>true</disable.checks>
+        <skipTests>false</skipTests>
 
-    <build>
-        <finalName>${project.artifactId}</finalName>
+        <!--<editor-fold desc="PMD">-->
+        <pmd-maven-plugin.version>3.12.0</pmd-maven-plugin.version>
+        <p3c-pmd.version>2.0.0</p3c-pmd.version>
+        <!--</editor-fold>-->
 
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>false</filtering>
-                <excludes>
-                    <exclude>.gitkeep</exclude>
-                </excludes>
-                <includes>
-                    <include>**</include>
-                </includes>
-            </resource>
-        </resources>
+        <!--<editor-fold desc="Google Jib">-->
+        <jib-maven-plugin.version>1.4.0</jib-maven-plugin.version>
+        <image_registry>registry.thunisoft.com:5000</image_registry>
+        <image_group>bsp</image_group>
+        <image_version>latest</image_version>
+        <!--</editor-fold>-->
 
-        <plugins>
-            <!-- Spring Boot plugin -->
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <!-- 将应用作为Unix系统(Linux, OSX, FreeBSD 等等)可执行程序 -->
-                    <!-- http://www.jianshu.com/p/b6372a780ff7 -->
-                    <executable>true</executable>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>springloaded</artifactId>
-                        <version>${build-plugin.springloaded.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
+        <surefire-maven-plugin.version>3.0.0-M3</surefire-maven-plugin.version>
+        <spotbugs-maven-plugin.version>3.1.12.2</spotbugs-maven-plugin.version>
+        <githook-maven-plugin.version>1.0.4</githook-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.4</jacoco-maven-plugin.version>
 
-            <!-- Jar plugin -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-            </plugin>
+        <start-class>com.keveon.factory.FactoryManagerApplication</start-class>
 
-            <!-- War plugin -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-            </plugin>
+        <commons-io.version>2.6</commons-io.version>
+        <commons-lang.version>2.6</commons-lang.version>
+        <fastjson.version>1.2.59</fastjson.version>
+        <guava.version>28.0-jre</guava.version>
+        <thymeleaf-layout-dialect.version>2.4.1</thymeleaf-layout-dialect.version>
 
-            <!-- Surefire plugin -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-            </plugin>
-
-            <!-- Resources plugin -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-            </plugin>
-
-            <!-- Source plugin -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!-- Javadoc plugin -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!-- Compiler plugin -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
+        <webjars.requirejs.version>2.3.3</webjars.requirejs.version>
+        <webjars.jquery.version>3.4.1</webjars.jquery.version>
+        <webjars.jquery-form.version>4.2.2</webjars.jquery-form.version>
+        <webjars.jquery-mousewheel.version>3.1.13</webjars.jquery-mousewheel.version>
+        <webjars.jquery-validation.version>1.19.0</webjars.jquery-validation.version>
+        <webjars.jquery-inputmask.version>4.0.5</webjars.jquery-inputmask.version>
+        <webjars.bootstrap.version>4.3.1</webjars.bootstrap.version>
+        <webjars.bootstrap-tagsinput.version>0.8.0</webjars.bootstrap-tagsinput.version>
+        <webjars.uikit.version>2.26.3</webjars.uikit.version>
+        <webjars.fontawesome.version>4.7.0</webjars.fontawesome.version>
+        <webjars.ckeditor.version>11.2.0</webjars.ckeditor.version>
+        <webjars.simditor.version>2.0.4</webjars.simditor.version>
+        <webjars.vue.version>2.6.10</webjars.vue.version>
+        <webjars.vue-resource.version>0.9.3</webjars.vue-resource.version>
+        <webjars.parsleyjs.version>2.8.1</webjars.parsleyjs.version>
+        <webjars.toastr.version>2.1.2</webjars.toastr.version>
+    </properties>
     <dependencies>
-        <!-- Apache Commons IO -->
+        <!--<editor-fold desc="Spring Boot Starters">-->
         <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>${commons-io.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-
-        <!-- Apache Commons Codec -->
         <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
-
-        <!-- Apache Commons Lang -->
         <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>${commons-lang.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jetty</artifactId>
         </dependency>
-
-        <!-- Apache Commons BeanUtils -->
         <dependency>
-            <groupId>commons-beanutils</groupId>
-            <artifactId>commons-beanutils</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
-
-        <!-- Druid -->
         <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
-            <version>${druid.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <!--</editor-fold>-->
 
-        <!-- Fastjson -->
+        <!--<editor-fold desc="Tripartite Dependencies">-->
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-jmx</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>nz.net.ultraq.thymeleaf</groupId>
+            <artifactId>thymeleaf-layout-dialect</artifactId>
+            <version>${thymeleaf-layout-dialect.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>${fastjson.version}</version>
         </dependency>
-
-        <!-- Guava -->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
         </dependency>
 
-        <!-- Spring Data JPA-->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>${commons-lang.version}</version>
+        </dependency>
+        <!--</editor-fold>-->
+
+        <!--<editor-fold desc="Compile">-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+            <scope>compile</scope>
         </dependency>
-
-        <!-- Spring Data Redis -->
-        <!--<dependency>-->
-        <!--<groupId>org.springframework.boot</groupId>-->
-        <!--<artifactId>spring-boot-starter-data-redis</artifactId>-->
-        <!--</dependency>-->
-
-        <!-- Spring Security -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>compile</scope>
         </dependency>
+        <!--</editor-fold>-->
 
-        <!-- Thymeleaf -->
+        <!--<editor-fold desc="Runtime">-->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
         </dependency>
-
-        <!-- Web -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <!-- 热部署 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-        </dependency>
-
-        <!-- MySQL驱动 -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
-
-        <!-- 简化Bean -->
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
         </dependency>
+        <!--</editor-fold>-->
 
-        <!-- Webjars Locator -->
+        <!--<editor-fold desc="Test">-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.restdocs</groupId>
+            <artifactId>spring-restdocs-mockmvc</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.restdocs</groupId>
+            <artifactId>spring-restdocs-webtestclient</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.projectreactor</groupId>
+            <artifactId>reactor-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!--</editor-fold>-->
+
+        <!--<editor-fold desc="Webjars, 准备删除">-->
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>webjars-locator</artifactId>
+            <version>0.36</version>
         </dependency>
 
         <!-- RequireJs -->
@@ -469,12 +438,453 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
-        <!-- 测试 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
+        <!--</editor-fold>-->
     </dependencies>
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <excludes>
+                    <exclude>.gitkeep</exclude>
+                </excludes>
+                <includes>
+                    <include>**</include>
+                </includes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+                <configuration>
+                    <failOnNoGitDirectory>false</failOnNoGitDirectory>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <configuration>
+                    <tagNameFormat>v@{project.version}</tagNameFormat>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.basepom.maven</groupId>
+                                        <artifactId>duplicate-finder-maven-plugin</artifactId>
+                                        <versionRange>[1,2)</versionRange>
+                                        <goals>
+                                            <goal>check</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore/>
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>
+                                            org.apache.maven.plugins
+                                        </groupId>
+                                        <artifactId>
+                                            maven-enforcer-plugin
+                                        </artifactId>
+                                        <versionRange>
+                                            [1.3.1,)
+                                        </versionRange>
+                                        <goals>
+                                            <goal>enforce</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore/>
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>
+                                            org.apache.maven.plugins
+                                        </groupId>
+                                        <artifactId>
+                                            maven-checkstyle-plugin
+                                        </artifactId>
+                                        <versionRange>
+                                            [2.16,)
+                                        </versionRange>
+                                        <goals>
+                                            <goal>
+                                                check
+                                            </goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore/>
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <id>enforce-rules</id>
+                            <goals>
+                                <goal>enforce</goal>
+                            </goals>
+                            <configuration>
+                                <rules>
+                                    <requireJavaVersion>
+                                        <version>[1.8,)</version>
+                                    </requireJavaVersion>
+                                    <requireMavenVersion>
+                                        <version>[3.5.0,)</version>
+                                    </requireMavenVersion>
+                                    <requireProperty>
+                                        <property>project.name</property>
+                                    </requireProperty>
+                                    <requireProperty>
+                                        <property>project.description</property>
+                                    </requireProperty>
+                                </rules>
+                                <fail>true</fail>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>build-info</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <configuration>
+                        <source>${java.version}</source>
+                        <skip>${disable.checks}</skip>
+                    </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.apache.commons</groupId>
+                            <artifactId>commons-lang3</artifactId>
+                            <version>3.7</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+                <plugin>
+                    <groupId>org.asciidoctor</groupId>
+                    <artifactId>asciidoctor-maven-plugin</artifactId>
+                    <version>1.5.7.1</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.springframework.restdocs</groupId>
+                            <artifactId>spring-restdocs-asciidoctor</artifactId>
+                            <version>${spring-restdocs.version}</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <configuration>
+                        <skip>${skipTests}</skip>
+                        <includes>
+                            <include>**/*Test.java</include>
+                            <include>**/*Tests.java</include>
+                        </includes>
+                        <excludes>
+                            <exclude>**/Abstract*.java</exclude>
+                        </excludes>
+                        <systemPropertyVariables>
+                            <java.security.egd>file:/dev/./urandom</java.security.egd>
+                            <java.awt.headless>true</java.awt.headless>
+                        </systemPropertyVariables>
+                        <trimStackTrace>false</trimStackTrace>
+                        <redirectTestOutputToFile>true</redirectTestOutputToFile>
+                        <runOrder>alphabetical</runOrder>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>${jacoco-maven-plugin.version}</version>
+                    <configuration>
+                        <skip>${skipTests}</skip>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-pmd-plugin</artifactId>
+                    <version>${pmd-maven-plugin.version}</version>
+                    <configuration>
+                        <skip>${disable.checks}</skip>
+                        <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
+                        <targetJdk>${java.version}</targetJdk>
+                        <printFailingErrors>true</printFailingErrors>
+                        <rulesets>
+                            <ruleset>rulesets/java/ali-comment.xml</ruleset>
+                            <ruleset>rulesets/java/ali-concurrent.xml</ruleset>
+                            <ruleset>rulesets/java/ali-constant.xml</ruleset>
+                            <ruleset>rulesets/java/ali-exception.xml</ruleset>
+                            <ruleset>rulesets/java/ali-flowcontrol.xml</ruleset>
+                            <ruleset>rulesets/java/ali-naming.xml</ruleset>
+                            <ruleset>rulesets/java/ali-oop.xml</ruleset>
+                            <ruleset>rulesets/java/ali-orm.xml</ruleset>
+                            <ruleset>rulesets/java/ali-other.xml</ruleset>
+                            <ruleset>rulesets/java/ali-set.xml</ruleset>
+                        </rulesets>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>pmd-check-verify</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>pmd-pmd-site</id>
+                            <phase>site</phase>
+                            <goals>
+                                <goal>pmd</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <dependencies>
+                        <dependency>
+                            <groupId>com.alibaba.p3c</groupId>
+                            <artifactId>p3c-pmd</artifactId>
+                            <version>${p3c-pmd.version}</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+                <plugin>
+                    <groupId>com.github.spotbugs</groupId>
+                    <artifactId>spotbugs-maven-plugin</artifactId>
+                    <version>${spotbugs-maven-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>spotbugs-check-verify</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>spotbugs-spotbugs-site</id>
+                            <phase>site</phase>
+                            <goals>
+                                <goal>spotbugs</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <skip>${disable.checks}</skip>
+                        <plugins>
+                            <!-- <plugin>-->
+                            <!--     <groupId>com.h3xstream.findsecbugs</groupId>-->
+                            <!--     <artifactId>findsecbugs-plugin</artifactId>-->
+                            <!--     <version>LATEST</version>-->
+                            <!-- </plugin>-->
+                            <!-- <plugin>-->
+                            <!--     <groupId>com.mebigfatguy.fb-contrib</groupId>-->
+                            <!--     <artifactId>fb-contrib</artifactId>-->
+                            <!--     <version>7.4.3.sb</version>-->
+                            <!-- </plugin>-->
+                        </plugins>
+                    </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>com.github.spotbugs</groupId>
+                            <artifactId>spotbugs</artifactId>
+                            <version>4.0.0-beta1</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+                <plugin>
+                    <groupId>io.github.phillipuniverse</groupId>
+                    <artifactId>githook-maven-plugin</artifactId>
+                    <version>${githook-maven-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>install</goal>
+                            </goals>
+                            <configuration>
+                                <hooks>
+                                    <pre-commit>
+                                        echo checking code style and security.
+                                        exec mvn clean compile pmd:check spotbugs:check
+                                    </pre-commit>
+                                    <pre-push>
+                                        echo running unit tests.
+                                        exec mvn clean install
+                                    </pre-push>
+                                </hooks>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>com.google.cloud.tools</groupId>
+                    <artifactId>jib-maven-plugin</artifactId>
+                    <version>${jib-maven-plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <!--suppress MavenModelInspection -->
+                <artifactId>maven-jxr-plugin</artifactId>
+                <!--suppress MavenModelInspection -->
+                <version>3.0.0</version>
+            </plugin>
+        </plugins>
+    </reporting>
+    <profiles>
+        <profile>
+            <id>fast</id>
+            <activation>
+                <property>
+                    <name>fast</name>
+                </property>
+            </activation>
+            <properties>
+                <disable.checks>true</disable.checks>
+            </properties>
+        </profile>
+        <profile>
+            <id>git-hooks</id>
+            <activation>
+                <property>
+                    <name>!disable.git-hooks</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.github.phillipuniverse</groupId>
+                        <artifactId>githook-maven-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <!-- call mvn with -Pjdk9 or call with -Daddmod="...." -->
+        <profile>
+            <id>jdk9</id>
+            <!--
+            allows automatic activation when jdk9 or jdk10 are used
+            https://maven.apache.org/guides/introduction/introduction-to-profiles.html
+            https://maven.apache.org/enforcer/enforcer-rules/versionRanges.html
+            -->
+            <activation>
+                <jdk>[9,10]</jdk>
+            </activation>
+            <properties>
+                <addmod>--add-modules java.xml.bind</addmod>
+            </properties>
+        </profile>
+        <profile>
+            <!-- from jdk11 onwards java.xml.bind is no longer part of the jdk -->
+            <!-- must be set to "test" or "provided" in subprojects -->
+            <id>jdk11</id>
+            <activation>
+                <jdk>[11,)</jdk>
+            </activation>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>javax.xml.bind</groupId>
+                        <artifactId>jaxb-api</artifactId>
+                        <version>2.3.1</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+    </profiles>
 </project>
